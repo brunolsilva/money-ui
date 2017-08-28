@@ -1,0 +1,7 @@
+.pessoa-status {
+  text-decoration: none;
+}
+
+a.pessoa-status:hover {
+  text-decoration: underline;
+}
