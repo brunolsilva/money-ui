@@ -1,5 +1,5 @@
 <div class="container">
-  <form autocomplete="off">
+  <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
     <div class="ui-g">
       <div class="ui-g-12">
         <h1>Nova Pessoa</h1>
@@ -7,9 +7,10 @@
 
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label>Nome</label>
-        <input pInputText type="text" name="nome" ngModel #nome="ngModel" required minlength="5">
+        <input pInputText type="text" name="nome" ngModel #nome="ngModel"
+          [(ngModel)]="pessoa.nome" required minlength="5">
         <div *ngIf="nome.hasError('required') && nome.dirty" class="ui-message ui-messages-error">
-          Informe uma descrição
+          Informe o nome
         </div>
         <div *ngIf="nome.hasError('minlength') && nome.dirty" class="ui-message ui-messages-error">
           Mínimo de {{nome.errors.minlength.requiredLength}} caracteres
@@ -18,22 +19,23 @@
       <div class="ui-g-9 ui-md-3 ui-fluid">
         <label>Logradouro</label>
         <input pInputText type="text" name="logradouro"
-          ngModel #logradouro="ngModel" required minlength="5">
+          ngModel #logradouro="ngModel"
+          [(ngModel)]="pessoa.endereco.logradouro" required minlength="5">
       </div>
       <div class="ui-g-3 ui-md-3 ui-fluid">
         <label>Número</label>
         <input pInputText type="text" name="numero" required maxlength="4"
-          ngModel #numero="ngModel">
+          ngModel [(ngModel)]="pessoa.endereco.numero" #numero="ngModel">
       </div>
       <div class="ui-g-4 ui-md-4 ui-fluid">
         <label>Complemento</label>
         <input pInputText type="text" name="complemento" maxlength="100"
-          ngModel #complemento="ngModel">
+          ngModel [(ngModel)]="pessoa.endereco.complemento" #complemento="ngModel">
       </div>
       <div class="ui-g-4 ui-md-4 ui-fluid">
         <label>Bairro</label>
         <input pInputText type="text" name="bairro"
-          ngModel #bairro="ngModel" required minlength="5">
+          ngModel #bairro="ngModel" [(ngModel)]="pessoa.endereco.bairro" required minlength="5">
       </div>
       <div class="ui-g-4 ui-md-4 ui-fluid">
         <label>CEP</label>
@@ -41,13 +43,13 @@
       </div>
       <div class="ui-g-6 ui-md-6 ui-fluid">
         <label>Cidade</label>
-        <input pInputText type="text" name="cidade"
+        <input pInputText type="text" name="cidade" [(ngModel)]="pessoa.endereco.cidade"
           ngModel #cidade="ngModel" required minlength="5">
       </div>
       <div class="ui-g-6 ui-md-6 ui-fluid">
         <label>Estado</label>
-        <p-dropdown [options]="ufs" placeholder="Selecione"
-          [autoWidth]="false" [filter]="true"></p-dropdown>
+        <p-dropdown [options]="ufs" placeholder="Selecione" [(ngModel)]="pessoa.endereco.estado"
+          name="estado" [autoWidth]="false" [filter]="true" required></p-dropdown>
       </div>
       <div class="ui-g-12">
         <button pButton type="submit" label="Salvar"></button>

@@ -1,3 +1,4 @@
+import { Lancamento } from './../model';
 
 import {Http, Headers, URLSearchParams} from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -54,5 +55,61 @@ export class LancamentoService {
 
         return resultado;
       });
+  }
+
+  excluir(codigo: number): Promise<void> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, {headers})
+      .toPromise()
+      .then(() => null);
+  }
+
+  adicionar(lancamento: Lancamento): Promise<Lancamento> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(`${this.lancamentosUrl}`,
+      JSON.stringify(lancamento), {headers})
+      .toPromise()
+      .then(response => response.json());
+  }
+
+  atualizar(lancamento: Lancamento): Promise<Lancamento> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(`${this.lancamentosUrl}/${lancamento.codigo}`,
+      JSON.stringify(lancamento), {headers})
+      .toPromise()
+      .then(response => {
+        const lancamentoAtualizado = response.json() as Lancamento;
+        this.converterStringsParaDatas([lancamentoAtualizado]);
+        return lancamentoAtualizado;
+      });
+  }
+
+  buscarPorCodigo(codigo: number): Promise<Lancamento> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    return this.http.get(`${this.lancamentosUrl}/${codigo}`, {headers})
+      .toPromise()
+      .then(response => {
+        const lancamento = response.json() as Lancamento;
+        this.converterStringsParaDatas([lancamento]);
+        return lancamento;
+      });
+  }
+
+  private converterStringsParaDatas(lancamentos: Lancamento[]) {
+    for (const l of lancamentos) {
+      l.dataVencimento = moment(l.dataVencimento, 'YYYY-MM-DD').toDate();
+
+      if (l.dataPagamento) {
+        l.dataPagamento = moment(l.dataPagamento, 'YYYY-MM-DD').toDate();
+      }
+    }
   }
 }

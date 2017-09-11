@@ -1,3 +1,9 @@
+import { AppRoutingModule } from './app-routing.module';
+import { PessoasPesquisaComponent } from './pessoas/pessoas-pesquisa/pessoas-pesquisa.component';
+import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
+import { LancamentosPesquisaComponent } from './lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
+import { CategoriaService } from './categorias/categoria.service';
+import { ErrorHandlerService } from './error-handler.service';
 import { PessoaService } from './pessoas/pessoa.service';
 import { HttpModule } from '@angular/http';
 
@@ -6,9 +12,10 @@ import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { ButtonModule } from 'primeng/components/button/button';
@@ -19,16 +26,22 @@ import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { SelectButtonModule } from 'primeng/components/selectbutton/selectbutton';
 import { DropdownModule } from 'primeng/components/dropdown/dropdown';
 import { InputMaskModule } from 'primeng/components/inputmask/inputmask';
+import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
+
+import {ToastyModule} from 'ng2-toasty';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ConfirmationService } from 'primeng/components/common/api';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    PaginaNaoEncontradaComponent
   ],
   imports: [
     BrowserModule,
@@ -44,13 +57,25 @@ import { NavbarComponent } from './navbar/navbar.component';
     DropdownModule,
     InputMaskModule,
     CurrencyMaskModule,
+    ConfirmDialogModule,
 
+    ToastyModule.forRoot(),
     HttpModule,
 
     LancamentosModule,
-    PessoasModule
+    PessoasModule,
+
+    AppRoutingModule
   ],
-  providers: [LancamentoService, PessoaService],
+  providers: [
+    LancamentoService,
+    PessoaService,
+    ConfirmationService,
+    CategoriaService,
+    { provide: LOCALE_ID, useValue: 'pt-BR'},
+    ErrorHandlerService,
+    Title
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
