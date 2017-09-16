@@ -11,7 +11,7 @@ export class CategoriaService {
   categoriasUrl: string;
 
   constructor(private http: AuthHttp) {
-    this.categoriasUrl = `${environment.apiUrl}/categorias`;
+    this.categoriasUrl = `${environment.apiUrl}/categoria`;
   }
 
   listarTodas(): Promise<any> {
