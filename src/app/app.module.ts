@@ -1,3 +1,6 @@
+import { NaoAutorizadoComponent } from './nao-autorizado.component';
+import { SegurancaModule } from './seguranca/seguranca.module';
+import { AuthService } from './seguranca/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { PessoasPesquisaComponent } from './pessoas/pessoas-pesquisa/pessoas-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
@@ -28,6 +31,8 @@ import { DropdownModule } from 'primeng/components/dropdown/dropdown';
 import { InputMaskModule } from 'primeng/components/inputmask/inputmask';
 import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
 
+import { JwtHelper } from 'angular2-jwt';
+
 import {ToastyModule} from 'ng2-toasty';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -41,7 +46,8 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
   declarations: [
     AppComponent,
     NavbarComponent,
-    PaginaNaoEncontradaComponent
+    PaginaNaoEncontradaComponent,
+    NaoAutorizadoComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +70,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
 
     LancamentosModule,
     PessoasModule,
+    SegurancaModule,
 
     AppRoutingModule
   ],
@@ -74,7 +81,9 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     CategoriaService,
     { provide: LOCALE_ID, useValue: 'pt-BR'},
     ErrorHandlerService,
-    Title
+    Title,
+    AuthService,
+    JwtHelper
   ],
   bootstrap: [AppComponent]
 })
