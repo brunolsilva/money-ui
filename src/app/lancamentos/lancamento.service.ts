@@ -1,6 +1,6 @@
+import { Lancamento } from './../core/model';
 import { environment } from './../../environments/environment';
 import { AuthHttp } from 'angular2-jwt';
-import { Lancamento } from './../model';
 
 import { Headers, URLSearchParams} from '@angular/http';
 import { Injectable } from '@angular/core';

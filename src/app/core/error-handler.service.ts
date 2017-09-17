@@ -1,4 +1,4 @@
-import { NotAuthenticatedError } from './seguranca/money-http';
+import { NotAuthenticatedError } from './../seguranca/money-http';
 import { Router } from '@angular/router';
 import { ToastyService } from 'ng2-toasty';
 import { Injectable } from '@angular/core';

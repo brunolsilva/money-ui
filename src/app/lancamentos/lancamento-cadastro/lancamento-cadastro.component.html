@@ -14,7 +14,8 @@
       <div class="ui-g-6 ui-md-3 ui-fluid">
         <label>Vencimento</label>
         <p-calendar dateFormat="dd/mm/yy" [readonlyInput]="false" [showIcon]="true"
-          name="dataVencimento" [(ngModel)]="lancamento.dataVencimento"></p-calendar>
+          name="dataVencimento" [(ngModel)]="lancamento.dataVencimento"
+          #vencimento="ngModel" required></p-calendar>
       </div>
        <div class="ui-g-6 ui-md-3 ui-fluid">
         <label>{{tipo.value == 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
@@ -24,7 +25,7 @@
       <div class="ui-g-12 ui-md-9 ui-fluid">
         <label>Descrição</label>
         <input pInputText type="text" name="descricao"
-          [(ngModel)]="lancamento.descricao" 
+          [(ngModel)]="lancamento.descricao"
           #descricao="ngModel" required minlength="5">
           <div *ngIf="descricao.hasError('required') && descricao.dirty" class="ui-message ui-messages-error">
             Informe uma descrição
@@ -35,7 +36,7 @@
       </div>
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label>Valor</label>
-        <input pInputText currencyMask [(ngModel)]="lancamento.valor" 
+        <input pInputText currencyMask [(ngModel)]="lancamento.valor"
           [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}"
           name="valor" placeholder="0,00">
       </div>
@@ -57,7 +58,7 @@
           [(ngModel)]="lancamento.observacao"></textarea>
       </div>
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="submit" label="Salvar" [disabled]="f.invalid"></button>
         <button pButton type="button" label="Novo" class="ui-button-info"
           (click)="novo(f)"></button>
         <a routerLink="/lancamentos">Voltar para a pesquisa</a>

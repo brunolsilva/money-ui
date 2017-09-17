@@ -14,7 +14,7 @@ import { SegurancaRoutingModule } from './seguranca-routing.module';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
-export function authHttpServiceFactory(auth: AuthService,http: Http, options: RequestOptions) {
+export function authHttpServiceFactory(auth: AuthService, http: Http, options: RequestOptions) {
   const config = new AuthConfig({
     globalHeaders: [
       {'Content-Type': 'application/json'}]

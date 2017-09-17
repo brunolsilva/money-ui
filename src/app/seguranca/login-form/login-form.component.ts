@@ -1,5 +1,5 @@
+import { ErrorHandlerService } from './../../core/error-handler.service';
 import { Router } from '@angular/router';
-import { ErrorHandlerService } from './../../error-handler.service';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 

@@ -1,4 +1,6 @@
-import { NaoAutorizadoComponent } from './nao-autorizado.component';
+import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
+import { ErrorHandlerService } from './core/error-handler.service';
+import { CoreModule } from './core/core.module';
 import { SegurancaModule } from './seguranca/seguranca.module';
 import { AuthService } from './seguranca/auth.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -6,7 +8,6 @@ import { PessoasPesquisaComponent } from './pessoas/pessoas-pesquisa/pessoas-pes
 import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { CategoriaService } from './categorias/categoria.service';
-import { ErrorHandlerService } from './error-handler.service';
 import { PessoaService } from './pessoas/pessoa.service';
 import { HttpModule } from '@angular/http';
 
@@ -38,53 +39,25 @@ import {ToastyModule} from 'ng2-toasty';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { ConfirmationService } from 'primeng/components/common/api';
-import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    PaginaNaoEncontradaComponent,
-    NaoAutorizadoComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     BrowserAnimationsModule,
-    InputTextModule,
-    ButtonModule,
-    DataTableModule,
-    TooltipModule,
-    InputTextareaModule,
-    CalendarModule,
-    SelectButtonModule,
-    DropdownModule,
-    InputMaskModule,
-    CurrencyMaskModule,
-    ConfirmDialogModule,
-
-    ToastyModule.forRoot(),
-    HttpModule,
 
     LancamentosModule,
     PessoasModule,
     SegurancaModule,
 
+    CoreModule,
+
     AppRoutingModule
   ],
-  providers: [
-    LancamentoService,
-    PessoaService,
-    ConfirmationService,
-    CategoriaService,
-    { provide: LOCALE_ID, useValue: 'pt-BR'},
-    ErrorHandlerService,
-    Title,
-    AuthService,
-    JwtHelper
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

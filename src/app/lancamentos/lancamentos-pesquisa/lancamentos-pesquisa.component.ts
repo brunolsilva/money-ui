@@ -1,5 +1,5 @@
+import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../../seguranca/auth.service';
-import { ErrorHandlerService } from './../../error-handler.service';
 import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 

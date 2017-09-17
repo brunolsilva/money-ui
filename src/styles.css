@@ -39,3 +39,12 @@ label {
   width: 90px;
   text-align: center;
 }
+
+.ui-messages-error {
+  margin: 0;
+  margin-top: 4px;
+}
+
+.ui-dropdown-filter-container {
+  width: 100%;
+}

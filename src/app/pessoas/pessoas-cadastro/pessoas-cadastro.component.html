@@ -2,7 +2,7 @@
   <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
     <div class="ui-g">
       <div class="ui-g-12">
-        <h1>Nova Pessoa</h1>
+        <h1>{{ editando ? 'Edição de': 'Nova'}} Pessoa</h1>
       </div>
 
       <div class="ui-g-12 ui-md-3 ui-fluid">
@@ -13,19 +13,28 @@
           Informe o nome
         </div>
         <div *ngIf="nome.hasError('minlength') && nome.dirty" class="ui-message ui-messages-error">
-          Mínimo de {{nome.errors.minlength.requiredLength}} caracteres
+          Mínimo de {{nome.errors?.minlength?.requiredLength}} caracteres
         </div>
       </div>
       <div class="ui-g-9 ui-md-3 ui-fluid">
         <label>Logradouro</label>
         <input pInputText type="text" name="logradouro"
           ngModel #logradouro="ngModel"
-          [(ngModel)]="pessoa.endereco.logradouro" required minlength="5">
+          [(ngModel)]="pessoa.endereco.logradouro" required>
+        <div *ngIf="logradouro.hasError('required') && logradouro.dirty" class="ui-message ui-messages-error">
+          Informe o logradouro
+        </div>
+        <div *ngIf="logradouro.hasError('minlength') && logradouro.dirty" class="ui-message ui-messages-error">
+          Mínimo de {{logradouro.errors?.minlength?.requiredLength}} caracteres
+        </div>
       </div>
       <div class="ui-g-3 ui-md-3 ui-fluid">
         <label>Número</label>
         <input pInputText type="text" name="numero" required maxlength="4"
           ngModel [(ngModel)]="pessoa.endereco.numero" #numero="ngModel">
+        <div *ngIf="numero.hasError('required') && numero.dirty" class="ui-message ui-messages-error">
+          Informe o número
+        </div>
       </div>
       <div class="ui-g-4 ui-md-4 ui-fluid">
         <label>Complemento</label>
@@ -35,26 +44,40 @@
       <div class="ui-g-4 ui-md-4 ui-fluid">
         <label>Bairro</label>
         <input pInputText type="text" name="bairro"
-          ngModel #bairro="ngModel" [(ngModel)]="pessoa.endereco.bairro" required minlength="5">
+          ngModel #bairro="ngModel" [(ngModel)]="pessoa.endereco.bairro" required>
+        <div *ngIf="bairro.hasError('required') && bairro.dirty" class="ui-message ui-messages-error">
+          Informe o bairro
+        </div>
       </div>
       <div class="ui-g-4 ui-md-4 ui-fluid">
         <label>CEP</label>
-        <p-inputMask mask="99999-999"></p-inputMask>
+        <p-inputMask mask="99.999-999" name="cep"
+          ngModel #cep="ngModel" [(ngModel)]="pessoa.endereco.cep" required></p-inputMask>
+        <div *ngIf="cep.hasError('required') && cep.dirty" class="ui-message ui-messages-error">
+          Informe o CEP
+        </div>
       </div>
       <div class="ui-g-6 ui-md-6 ui-fluid">
         <label>Cidade</label>
         <input pInputText type="text" name="cidade" [(ngModel)]="pessoa.endereco.cidade"
-          ngModel #cidade="ngModel" required minlength="5">
+          ngModel #cidade="ngModel" required>
+          <div *ngIf="cidade.hasError('required') && cidade.dirty" class="ui-message ui-messages-error">
+            Informe a cidade
+          </div>
       </div>
       <div class="ui-g-6 ui-md-6 ui-fluid">
         <label>Estado</label>
-        <p-dropdown [options]="ufs" placeholder="Selecione" [(ngModel)]="pessoa.endereco.estado"
+        <p-dropdown [options]="ufs" placeholder="Selecione" [(ngModel)]="pessoa.endereco.estado" #estado="ngModel"
           name="estado" [autoWidth]="false" [filter]="true" required></p-dropdown>
+        <div *ngIf="estado.hasError('required') && estado.dirty" class="ui-message ui-messages-error">
+          Informe a cidade
+        </div>
       </div>
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar"></button>
-        <button pButton type="submit" label="Novo" class="ui-button-info"></button>
-        <a href="#">Voltar para a pesquisa</a>
+        <button pButton type="submit" label="Salvar" [disabled]="f.invalid"></button>
+        <button pButton type="button" label="Novo" class="ui-button-info"
+          (click)="novo(f)"></button>
+        <a href="#" routerLink="/pessoas">Voltar para a pesquisa</a>
       </div>
     </div>
   </form>

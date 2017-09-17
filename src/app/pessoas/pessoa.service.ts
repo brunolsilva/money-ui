@@ -1,6 +1,6 @@
+import { Pessoa } from './../core/model';
 import { environment } from './../../environments/environment';
 import { AuthHttp } from 'angular2-jwt';
-import { Pessoa } from './../model';
 import {Http, Headers, URLSearchParams} from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -67,6 +67,22 @@ export class PessoaService {
     return this.http.post(`${this.pessoasUrl}`, pessoa)
       .toPromise()
       .then(response => response.json());
+  }
+
+  atualizar(pessoa: Pessoa): Promise<Pessoa> {
+    return this.http.put(`${this.pessoasUrl}/${pessoa.codigo}`, pessoa)
+      .toPromise()
+      .then(response => {
+        return response.json();
+      });
+  }
+
+  buscarPorCodigo(codigo: number): Promise<Pessoa> {
+    return this.http.get(`${this.pessoasUrl}/${codigo}`)
+      .toPromise()
+      .then(response => {
+        return response.json();
+      });
   }
 
 }
